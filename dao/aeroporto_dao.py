@@ -1,10 +1,10 @@
 from models.aeroporto import Aeroporto
 
-SQL_DELETA_AEROPORTO = 'delete from AEROPORTO where Codigo_aeroporto = %s'
-SQL_AEROPORTO_POR_CODIGO_AEROPORTO = 'SELECT Codigo_aeroporto, nome, cidade, estado from AEROPORTO where Codigo_aeroporto = %s'
-SQL_ATUALIZA_AEROPORTO = 'UPDATE AEROPORTO SET nome=%s, cidade=%s, estado=%s where Codigo_aeroporto = %s'
-SQL_BUSCA_AEROPORTOS = 'SELECT Codigo_aeroporto, nome, cidade, estado from AEROPORTO'
-SQL_CRIA_AEROPORTO = 'INSERT into AEROPORTO (nome, cidade, estado) values (%s, %s, %s)'
+SQL_DELETA_AEROPORTO = 'delete from aeroporto where Codigo_aeroporto = %s'
+SQL_AEROPORTO_POR_CODIGO_AEROPORTO = 'SELECT Codigo_aeroporto, nome, cidade, estado from aeroporto where Codigo_aeroporto = %s'
+SQL_ATUALIZA_AEROPORTO = 'UPDATE aeroporto SET nome=%s, cidade=%s, estado=%s where Codigo_aeroporto = %s'
+SQL_BUSCA_AEROPORTOS = 'SELECT Codigo_aeroporto, nome, cidade, estado from aeroporto'
+SQL_CRIA_AEROPORTO = 'INSERT into aeroporto (nome, cidade, estado) values (%s, %s, %s)'
 
 
 class AeroportoDao:
