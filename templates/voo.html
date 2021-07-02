@@ -1,0 +1,54 @@
+{% extends "template.html" %}
+{% block conteudo %}
+    {% if voo %}
+    <form action="{{ url_for('atualizar_voo') }}" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="numero_voo" value="{{ voo.numero_voo }}">
+    <div class="row">
+        <div class="col-md-3">
+          <input type="text" id="companhia_aerea" name="companhia_aerea" class="form-control" placeholder="Companhia Aérea" value="{{ voo.companhia_aerea }}">
+        </div>
+        <div class="col-md-3">
+          <input type="text" id="dias_semana" name="dias_semana" class="form-control" placeholder="Dias da Semana" value="{{ voo.dias_semana }}">
+        </div>
+        <button type="submit" class="btn btn-primary btn-salvar col-md-2">Salvar</button>
+        <a href="/voo" class="btn btn-primary col-md-1" role="button">Voltar</a>
+      </div>
+    </form>
+    {% else %}
+    <form action="{{ url_for('criar_voo') }}" method="post" enctype="multipart/form-data">
+    <div class="row">
+      <div class="col-md-3">
+        <input type="text" id="companhia_aerea" name="companhia_aerea" class="form-control" placeholder="Companhia Aérea">
+      </div>
+      <div class="col-md-3">
+        <input type="text" id="dias_semana" name="dias_semana" class="form-control" placeholder="Dias da Semana">
+      </div>
+      <button type="submit" class="btn btn-primary btn-salvar col-md-3">Salvar</button>
+    </div>
+</form>
+    {% endif %}
+
+        <table class="table table-striped table-responsive table-bordered">
+            <thead class="thead-default">
+                <tr>
+                    <th>Número do Voo</th>
+                    <th>Companhia Aérea</th>
+                    <th>Dias da Semana</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for voo in voos %}
+                <tr>
+                    <td>{{ voo.numero_voo }}</td>
+                    <td>{{ voo.companhia_aerea }}</td>
+                    <td>{{ voo.dias_semana }}</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="{{ url_for('voo', id=voo.numero_voo) }}">Editar</a>
+                        <a class="btn btn-danger btn-sm" href="{{ url_for('deletar_voo', id=voo.numero_voo) }}">Deletar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}
