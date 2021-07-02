@@ -15,7 +15,7 @@ def aeroporto(id=None):
     else:
         return render_template('aeroporto.html', titulo='Aeroporto', aeroportos=aeroportos)
         
-@app.route('/criar', methods=['POST',])
+@app.route('/criar_aeroporto', methods=['POST',])
 def criar_aeroporto():
     nome = request.form['nome']
     cidade = request.form['cidade']
@@ -24,7 +24,7 @@ def criar_aeroporto():
     aeroporto = aeroporto_dao.salvar(aeroporto)
     return redirect(url_for('aeroporto'))
 
-@app.route('/atualizar', methods=['POST',])
+@app.route('/atualizar_aeroporto', methods=['POST',])
 def atualizar_aeroporto():
     nome = request.form['nome']
     cidade = request.form['cidade']
@@ -33,7 +33,7 @@ def atualizar_aeroporto():
     aeroporto_dao.salvar(aeroporto)
     return redirect(url_for('aeroporto'))
 
-@app.route('/deletar/<int:id>')
+@app.route('/deletar_aeroporto/<int:id>')
 def deletar_aeroporto(id):
     aeroporto_dao.deletar(id)
     return redirect(url_for('aeroporto'))

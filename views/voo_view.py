@@ -15,7 +15,7 @@ def voo(id=None):
     else:
         return render_template('voo.html', titulo='Voo', voos=voos)
         
-@app.route('/criar', methods=['POST',])
+@app.route('/criar_voo', methods=['POST',])
 def criar_voo():
     companhia_aerea = request.form['companhia_aerea']
     dias_semana = request.form['dias_semana']
@@ -23,7 +23,7 @@ def criar_voo():
     voo = voo_dao.salvar(voo)
     return redirect(url_for('voo'))
 
-@app.route('/atualizar', methods=['POST',])
+@app.route('/atualizar_voo', methods=['POST',])
 def atualizar_voo():
     companhia_aerea = request.form['companhia_aerea']
     dias_semana = request.form['dias_semana']
@@ -31,7 +31,7 @@ def atualizar_voo():
     voo_dao.salvar(voo)
     return redirect(url_for('voo'))
 
-@app.route('/deletar/<int:id>')
+@app.route('/deletar_voo/<int:id>')
 def deletar_voo(id):
     voo_dao.deletar(id)
     return redirect(url_for('voo'))
