@@ -21,9 +21,11 @@ create table if not exists TRECHO_VOO(
     Codigo_aeroporto_partida INT,
     Codigo_aeroporto_chegada INT,
     Horario_partida_previsto VARCHAR(20),
-    Horario_aeroporto_chegada VARCHAR(20),
+    Horario_chegada_previsto VARCHAR(20),
     PRIMARY KEY(Numero_trecho, Numero_voo),
-    FOREIGN KEY (Numero_voo) REFERENCES VOO(Numero_voo));
+    FOREIGN KEY (Numero_voo) REFERENCES VOO(Numero_voo),
+    FOREIGN KEY (Codigo_aeroporto_partida) REFERENCES AEROPORTO(Codigo_aeroporto),
+    FOREIGN KEY (Codigo_aeroporto_chegada) REFERENCES AEROPORTO(Codigo_aeroporto));
 
 create table if not exists TIPO_AERONAVE(
 	Nome_tipo_aeronave VARCHAR(20),
