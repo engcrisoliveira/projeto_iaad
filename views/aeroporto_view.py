@@ -1,5 +1,5 @@
 from models.aeroporto import Aeroporto
-from flask import render_template, request, redirect, flash, url_for
+from flask import render_template, request, redirect, url_for
 from dao.aeroporto_dao import AeroportoDao
 from main import db, app
 
