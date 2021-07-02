@@ -1,10 +1,10 @@
 from models.voo import Voo
 
-SQL_DELETA_VOO = 'delete from voo where Numero_voo = %s'
-SQL_VOO_POR_NUMERO_VOO = 'SELECT Numero_voo, companhia_aerea, dias_semana from voo where Numero_voo = %s'
-SQL_ATUALIZA_VOO = 'UPDATE voo SET companhia_aerea=%s, dias_semana=%s where Numero_voo = %s'
-SQL_BUSCA_VOOS = 'SELECT Numero_voo, companhia_aerea, dias_semana from voo'
-SQL_CRIA_VOO = 'INSERT into voo (companhia_aerea, dias_semana) values (%s, %s, %s)'
+SQL_DELETA_VOO = 'delete from VOO where Numero_voo = %s'
+SQL_VOO_POR_NUMERO_VOO = 'SELECT Numero_voo, companhia_aerea, dias_semana from VOO where Numero_voo = %s'
+SQL_ATUALIZA_VOO = 'UPDATE VOO SET companhia_aerea=%s, dias_semana=%s where Numero_voo = %s'
+SQL_BUSCA_VOOS = 'SELECT Numero_voo, companhia_aerea, dias_semana from VOO'
+SQL_CRIA_VOO = 'INSERT into VOO (companhia_aerea, dias_semana) values (%s, %s)'
 
 
 class VooDao:
@@ -32,7 +32,7 @@ class VooDao:
         cursor = self.__db.connection.cursor()
         cursor.execute(SQL_VOO_POR_NUMERO_VOO, (numero_voo,))
         tupla = cursor.fetchone()
-        return Voo(tupla[1], tupla[2], tupla[3], id=tupla[0])
+        return Voo(tupla[1], tupla[2], numero_voo=tupla[0])
 
     def deletar(self, numero_voo):
         self.__db.connection.cursor().execute(SQL_DELETA_VOO, (numero_voo, ))
@@ -40,5 +40,5 @@ class VooDao:
 
 def traduz_voos(voos):
     def cria_voo_com_tupla(tupla):
-        return Voo(tupla[1], tupla[2], tupla[3], numero_voo=tupla[0])
+        return Voo(tupla[1], tupla[2], numero_voo=tupla[0])
     return list(map(cria_voo_com_tupla, voos))
