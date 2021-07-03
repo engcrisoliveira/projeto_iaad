@@ -1,0 +1,59 @@
+{% extends "template.html" %}
+{% block conteudo %}
+    {% if tipo_aeronave %}
+    <form action="{{ url_for('atualizar_tipo_aeronave') }}" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-3">
+            <input readonly type="text" id="nome_tipo_aeronave" name="nome_tipo_aeronave" class="form-control" placeholder="Nome do Tipo da Aeronave" value="{{ tipo_aeronave.nome_tipo_aeronave }}">
+          </div>
+        <div class="col-md-3">
+          <input type="text" id="qtd_max_assentos" name="qtd_max_assentos" class="form-control" placeholder="Qtde Máxima de Assentos" value="{{ tipo_aeronave.qtd_max_assentos }}">
+        </div>
+        <div class="col-md-3">
+          <input type="text" id="companhia" name="companhia" class="form-control" placeholder="Companhia" value="{{ tipo_aeronave.companhia }}">
+        </div>
+        <button type="submit" class="btn btn-primary btn-salvar col-md-2">Salvar</button>
+        <a href="/tipo_aeronave" class="btn btn-primary col-md-1" role="button">Voltar</a>
+      </div>
+    </form>
+    {% else %}
+    <form action="{{ url_for('criar_tipo_aeronave') }}" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-3">
+            <input type="text" id="nome_tipo_aeronave" name="nome_tipo_aeronave" class="form-control" placeholder="Nome do Tipo da Aeronave">
+          </div>
+      <div class="col-md-3">
+        <input type="text" id="qtd_max_assentos" name="qtd_max_assentos" class="form-control" placeholder="Qtde Máxima de Assentos">
+      </div>
+      <div class="col-md-3">
+        <input type="text" id="companhia" name="companhia" class="form-control" placeholder="Companhia">
+      </div>
+      <button type="submit" class="btn btn-primary btn-salvar col-md-3">Salvar</button>
+    </div>
+</form>
+    {% endif %}
+
+        <table class="table table-striped table-responsive table-bordered">
+            <thead class="thead-default">
+                <tr>
+                    <th>Nome do Tipo de Aeronave</th>
+                    <th>Qtde Máxima de Assentos</th>
+                    <th>Companhia</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for tipo_aeronave in tipo_aeronaves %}
+                <tr>
+                    <td>{{ tipo_aeronave.nome_tipo_aeronave }}</td>
+                    <td>{{ tipo_aeronave.qtd_max_assentos }}</td>
+                    <td>{{ tipo_aeronave.companhia }}</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="{{ url_for('tipo_aeronave', id=tipo_aeronave.nome_tipo_aeronave) }}">Editar</a>
+                        <a class="btn btn-danger btn-sm" href="{{ url_for('deletar_tipo_aeronave', id=tipo_aeronave.nome_tipo_aeronave) }}">Deletar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}
