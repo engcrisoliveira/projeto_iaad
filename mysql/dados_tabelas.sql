@@ -1,3 +1,9 @@
+alter table aeroporto modify Nome varchar(60);
+alter table aeroporto modify Nome varchar(60);
+alter table voo modify Companhia_aerea varchar(40);
+
+select * from trecho_voo; 
+
 insert into TIPO_AERONAVE values
 ('Boeing 737-800', '186', 'Gol Linhas Aéreas'),
 ('Boeing 737-700', '146', 'Gol Linhas Aéreas'),
@@ -68,3 +74,5 @@ insert into pode_pousar values
 ('Airbus 320neo', 14),
 ('Embraer 195E2', 20),
 ('Boeing 737-800', 16);
+
+select * from voo;
