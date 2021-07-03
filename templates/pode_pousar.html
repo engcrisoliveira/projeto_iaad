@@ -1,0 +1,72 @@
+{% extends "template.html" %}
+{% block conteudo %}
+    {% if pode_pousar_escolhido %}
+    <form action="{{ url_for('atualizar_pode_pousar') }}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="nome_tipo_aeronave_escolhido" value="{{ pode_pousar_escolhido.nome_tipo_aeronave }}">
+        <input type="hidden" name="codigo_aeroporto_escolhido" value="{{ pode_pousar_escolhido.codigo_aeroporto }}">
+        <div class="row">
+        <div class="col-md-2">
+            <label for="nome_tipo_aeronave">Nome do Tipo da Aeronave:</label>
+            <select name="nome_tipo_aeronave" id="nome_tipo_aeronave" value="{{ pode_pousar_escolhido.nome_tipo_aeronave }}">
+                {% for tipo_aeronave in tipo_aeronaves %}
+                    <option value="{{ tipo_aeronave.nome_tipo_aeronave }}">{{ tipo_aeronave.nome_tipo_aeronave }}</option>
+                {% endfor %}
+              </select>
+          </div>
+        <div class="col-md-2">
+            <label for="codigo_aeroporto">Código do Aeroporto:</label>
+            <select name="codigo_aeroporto" id="codigo_aeroporto" value="{{ pode_pousar_escolhido.codigo_aeroporto }}">
+                {% for aeroporto in aeroportos %}
+                    <option value="{{ aeroporto.codigo_aeroporto }}">{{ aeroporto.codigo_aeroporto }}</option>
+                {% endfor %}
+              </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-salvar col-md-2">Salvar</button>
+        <a href="/pode_pousar" class="btn btn-primary col-md-1" role="button">Voltar</a>
+    </form>
+    {% else %}
+    <form action="{{ url_for('criar_pode_pousar') }}" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-2">
+            <label for="nome_tipo_aeronave">Nome do Tipo da Aeronave:</label>
+            <select name="nome_tipo_aeronave" id="nome_tipo_aeronave">
+                {% for tipo_aeronave in tipo_aeronaves %}
+                    <option value="{{ tipo_aeronave.nome_tipo_aeronave }}">{{ tipo_aeronave.nome_tipo_aeronave }}</option>
+                {% endfor %}
+            </select>
+          </div>
+      <div class="col-md-2">
+        <label for="codigo_aeroporto">Código do Aeroporto:</label>
+            <select name="codigo_aeroporto" id="codigo_aeroporto">
+                {% for aeroporto in aeroportos %}
+                    <option value="{{ aeroporto.codigo_aeroporto }}">{{ aeroporto.codigo_aeroporto }}</option>
+                {% endfor %}
+              </select>
+      </div>
+      <button type="submit" class="btn btn-primary btn-salvar col-md-2">Salvar</button>
+    </div>
+</form>
+    {% endif %}
+
+        <table class="table table-striped table-responsive table-bordered">
+            <thead class="thead-default">
+                <tr>
+                    <th>Nome do Tipo da Aeronave</th>
+                    <th>Código do Aeroporto</th>                    
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for pp in pode_pousar %}
+                <tr>
+                    <td>{{ pp.nome_tipo_aeronave }}</td>
+                    <td>{{ pp.codigo_aeroporto }}</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="{{ url_for('pode_pousar', nome_tipo_aeronave=pp.nome_tipo_aeronave, codigo_aeroporto=pp.codigo_aeroporto) }}">Editar</a>
+                        <a class="btn btn-danger btn-sm" href="{{ url_for('deletar_pode_pousar', nome_tipo_aeronave=pp.nome_tipo_aeronave, codigo_aeroporto=pp.codigo_aeroporto) }}">Deletar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}
