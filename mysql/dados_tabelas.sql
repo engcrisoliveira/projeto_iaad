@@ -2,8 +2,7 @@ alter table aeroporto modify Nome varchar(60);
 alter table aeroporto modify Nome varchar(60);
 alter table voo modify Companhia_aerea varchar(40);
 
-select * from trecho_voo; 
-
+select * from aeroporto;
 insert into TIPO_AERONAVE values
 ('Boeing 737-800', '186', 'Gol Linhas Aéreas'),
 ('Boeing 737-700', '146', 'Gol Linhas Aéreas'),
@@ -75,4 +74,10 @@ insert into pode_pousar values
 ('Embraer 195E2', 20),
 ('Boeing 737-800', 16);
 
-select * from voo;
+insert into TARIFA(Numero_voo, Quantidade, Restricoes) values
+(13, 4, 'Nenhuma'),
+(14, 3, 'Nenhuma'),
+(15, 6, 'Nenhuma'),
+(16, 0, 'Nenhuma'),
+(17, 1, 'Nenhuma'),
+(18, 0, 'Nenhuma');
