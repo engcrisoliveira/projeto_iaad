@@ -1,7 +1,7 @@
 from models.trecho_voo import Trecho_voo
 
 SQL_DELETA_TRECHO_VOO = 'delete from TRECHO_VOO where Numero_trecho = %s'
-SQL_TRECHO_VOO_POR_NUMERO_TRECHO = 'SELECT Numero_trecho, Codigo_aeroporto_partida, Horario_partida_previsto, Codigo_aeroporto_chegada, Horario_chegada_previsto from TRECHO_VOO where Numero_trecho = %s'
+SQL_TRECHO_VOO_POR_NUMERO_TRECHO = 'SELECT Numero_voo, Numero_trecho, Codigo_aeroporto_partida, Horario_partida_previsto, Codigo_aeroporto_chegada, Horario_chegada_previsto from TRECHO_VOO where Numero_trecho = %s'
 SQL_ATUALIZA_TRECHO_VOO = 'UPDATE TRECHO_VOO SET Numero_voo=%s, Codigo_aeroporto_partida=%s, Horario_partida_previsto=%s, Codigo_aeroporto_chegada=%s, Horario_chegada_previsto=%s where Numero_trecho = %s'
 SQL_BUSCA_TRECHO_VOOS = 'SELECT Numero_voo, Numero_trecho, Codigo_aeroporto_partida, Horario_partida_previsto, Codigo_aeroporto_chegada, Horario_chegada_previsto from TRECHO_VOO'
 SQL_CRIA_TRECHO_VOO = 'INSERT into TRECHO_VOO (Numero_voo, Codigo_aeroporto_partida, Horario_partida_previsto, Codigo_aeroporto_chegada, Horario_chegada_previsto) values (%s, %s, %s, %s, %s)'
@@ -40,5 +40,5 @@ class Trecho_vooDao:
 
 def traduz_trecho_voos(trecho_voos):
     def cria_trecho_voo_com_tupla(tupla):
-        return Trecho_voo(tupla[1], tupla[2], tupla[3], tupla[4], tupla[5], numero_trecho=tupla[0])
+        return Trecho_voo(tupla[0], tupla[2], tupla[3], tupla[4], tupla[5], numero_trecho=tupla[1])
     return list(map(cria_trecho_voo_com_tupla, trecho_voos))

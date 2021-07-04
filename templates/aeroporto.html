@@ -5,7 +5,12 @@
     <input type="hidden" name="codigo_aeroporto" value="{{ aeroporto.codigo_aeroporto }}">
     <div class="row">
         <div class="col-md-3">
-          <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome" value="{{ aeroporto.nome }}">
+          <input type="text" 
+          id="nome" 
+          name="nome" 
+          class="form-control" 
+          placeholder="Nome" 
+          value="{{ aeroporto.nome }}">
         </div>
         <div class="col-md-3">
           <input type="text" id="cidade" name="cidade" class="form-control" placeholder="Cidade" value="{{ aeroporto.cidade }}">
@@ -21,10 +26,20 @@
     <form action="{{ url_for('criar_aeroporto') }}" method="post" enctype="multipart/form-data">
     <div class="row">
       <div class="col-md-3">
-        <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome">
+        <input 
+        type="text" 
+        id="nome" 
+        name="nome" 
+        class="form-control" 
+        placeholder="Nome">
       </div>
       <div class="col-md-3">
-        <input type="text" id="cidade" name="cidade" class="form-control" placeholder="Cidade">
+        <input 
+        type="text" 
+        id="cidade" 
+        name="cidade" 
+        class="form-control" 
+        placeholder="Cidade">
       </div>
       <div class="col-md-3">
         <input type="text" id="estado" name="estado" class="form-control" placeholder="Estado">

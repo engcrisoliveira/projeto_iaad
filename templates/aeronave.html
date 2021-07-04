@@ -1,0 +1,92 @@
+{% extends "template.html" %}
+{% block conteudo %}
+    {% if aeronave %}
+    <form action="{{url_for('atualizar_aeronave')}}" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="codigo_aeronave" value="{{ aeronave.codigo_aeronave }}">
+        <div class="row">
+            <div class="col-md-3">
+                <input type="text" 
+                id="numero_total_assentos" name="numero_total_assentos" class="form-control" 
+                placeholder="Numero total de assentos" 
+                value="{{ aeronave.numero_total_assentos }}">
+            </div>
+            <div class="col-md-3">
+                <label for="tipo_aeronave">
+                    Tipo de aeronave:
+                </label>
+                <select 
+                name="tipo_aeronave" 
+                id="tipo_aeronave" 
+                value="{{ aeronave.tipo_aeronave }}">
+                    {% for aeronave in aeronaves %}
+                    <option
+                     value="{{ aeronave.tipo_aeronave }}">
+                     {{ aeronave.tipo_aeronave }}
+                    </option>
+                    {% endfor %}
+              </select>
+            </div>
+            <button type="submit" 
+              class="btn btn-primary btn-salvar col-md-2">
+              Salvar
+            </button>
+            <a href="/aeronave" 
+              class="btn btn-primary col-md-1" role="button">
+              Voltar
+            </a>
+        </div>
+    
+    </form>
+    
+    {%else%}
+   
+    <form action="{{ url_for('criar_aeronave') }}" method="POST" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-3">
+                <input type="text" 
+                id="numero_total_assentos" name="numero_total_assentos" class="form-control" 
+                placeholder="Numero total de assentos" >
+            </div>
+            <div class="col-md-4">
+                <label for="tipo_aeronave">
+                    Tipo de aeronave:
+                </label>
+                <select name="tipo_aeronave" id="tipo_aeronave">
+                    {% for tipo in tipos %}
+                    <option value="{{tipo.nome_tipo_aeronave}}">{{tipo.nome_tipo_aeronave}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button 
+            type="submit" 
+            class="btn btn-primary btn-salvar col-md-3">
+            Salvar
+            </button>
+        </div>
+    </form>
+    
+    {% endif %}
+    <table class="table table-striped table-responsive table-bordered">
+        <thead class="thead-default">
+            <tr>
+                <th>Código do aeronave</th>
+                <th>Numero total de assentos</th>
+                <th>Tipo de aeronave</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for aeronave in aeronaves %}
+                <tr>
+                    <td>{{ aeronave.codigo_aeronave }}</td>
+                    <td>{{ aeronave.numero_total_assentos }}</td>
+                    <td>{{ aeronave.tipo_aeronave }}</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="{{ url_for('aeronave', id=aeronave.codigo_aeronave) }}">Editar</a>
+                        <a class="btn btn-danger btn-sm" href="{{ url_for('deletar_aeronave', id=aeronave.codigo_aeronave) }}">Deletar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+    </table>
+    {% endblock %}
