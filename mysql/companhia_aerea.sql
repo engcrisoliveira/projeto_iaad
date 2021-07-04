@@ -82,6 +82,23 @@ create table if not exists PODE_POUSAR(
     PRIMARY KEY(Nome_tipo_aeronave, Codigo_aeroporto),
     FOREIGN KEY(Nome_tipo_aeronave) REFERENCES TIPO_AERONAVE(Nome_tipo_aeronave),
     FOREIGN KEY(Codigo_aeroporto) REFERENCES AEROPORTO(Codigo_aeroporto));
-    
 
-    
+DELIMITER $$
+create procedure verAssento(varNomeCliente VARCHAR(50))
+BEGIN
+	SELECT CONCAT('O assento de ', Nome_cliente, ' é ', Numero_assento)
+    FROM RESERVA_ASSENTO
+    WHERE Nome_cliente = varNomeCliente;
+END
+$$
+
+DELIMITER $$
+create trigger tr_assentos_disponiveis after insert
+on RESERVA_ASSENTO
+for each row
+BEGIN
+	UPDATE INSTANCIA_TRECHO
+	SET Numero_assentos_disponiveis = Numero_assentos_disponiveis - 1
+	WHERE Numero_trecho = new.Numero_trecho;
+END
+$$
