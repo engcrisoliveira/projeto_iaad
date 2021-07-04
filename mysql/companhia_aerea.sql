@@ -92,4 +92,13 @@ BEGIN
 END
 $$
 
-    
+DELIMITER $$
+create trigger tr_assentos_disponiveis after insert
+on RESERVA_ASSENTO
+for each row
+BEGIN
+	UPDATE INSTANCIA_TRECHO
+	SET Numero_assentos_disponiveis = Numero_assentos_disponiveis - 1
+	WHERE Numero_trecho = new.Numero_trecho;
+END
+$$
