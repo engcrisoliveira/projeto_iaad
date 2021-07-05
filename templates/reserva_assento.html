@@ -1,0 +1,155 @@
+{% extends "template.html" %}
+{% block conteudo %}
+    {% if reserva %}
+    <form action="{{url_for('atualizar_reserva_assento')}}" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="numero_voo_escolhido" value="{{ reserva.numero_voo }}">
+      <input type="hidden" name="numero_trecho_escolhido" value="{{ reserva.numero_trecho }}">
+      <input type="hidden" name="dataa_escolhido" value="{{ reserva.dataa }}">
+      <input type="hidden" name="numero_assento_escolhido" value="{{ reserva.numero_assento }}">
+
+    <div class="row">
+        <div class="col-md-3">
+            <label>Numero do voo</label>
+            <input type="text" 
+          id="numero_voo" 
+          name="numero_voo" 
+          class="form-control" 
+          placeholder="Numero do Voo" 
+          value="{{ reserva.numero_voo }}"> <!--escolhe: voo-->
+        </div>
+        <div class="col-md-3">
+            <input type="text" 
+          id="numero_trecho" 
+          name="numero_trecho" 
+          class="form-control" 
+          placeholder="Numero do Trecho" 
+          value="{{ reserva.numero_trecho }}"> <!--escolhe: trecho-->
+        </div>
+        <div class="col-md-3">
+            <input type="date" 
+          id="dataa" 
+          name="dataa" 
+          class="form-control" 
+          placeholder="Data" 
+          value="{{ reserva.dataa }}">
+        </div>
+        <div class="col-md-3">
+            <input type="number" 
+          id="numero_assento" 
+          name="numero_assento" 
+          class="form-control" 
+          placeholder="Numero do assento" 
+          value="{{ reserva.numero_assento }}"> <!--escolhe: assento-->
+        </div>
+        <div class="col-md-3">
+            <input type="text" 
+          id="nome_cliente" 
+          name="nome_cliente" 
+          class="form-control" 
+          placeholder="Nome do cliente" 
+          value="{{ reserva.nome_cliente }}">
+        </div>
+        <div class="col-md-3">
+            <input type="text" 
+          id="telefone_cliente" 
+          name="telefone_cliente" 
+          class="form-control" 
+          placeholder="Telefone do cliente" 
+          value="{{ reserva.telefone_cliente }}">
+        </div>
+        <button type="submit" class="btn btn-primary btn-salvar col-md-2">Salvar</button>
+        <a href="/reserva_assento" class="btn btn-primary col-md-1" role="button">Voltar</a>
+    </div>
+    </form>
+
+    {% else %}
+    <form action="{{ url_for('criar_reserva_assento') }}" method="POST" enctype="multipart/form-data">  
+        <div class="row">
+            <div class="col-md-3">
+              <label for="numero_voo">Número do Voo:</label>
+              <select name="numero_voo" id="numero_voo" }}>
+                  {% for voo in voos %}
+                      <option value="{{ voo.numero_voo }}">{{ voo.numero_voo }}</option>
+                  {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+              <label for="numero_trecho">Número do Trecho:</label>
+              <select name="numero_trecho" id="numero_trecho" }}>
+                  {% for trecho in trecho_voos %}
+                      <option value="{{ trecho.numero_trecho }}">{{ trecho.numero_trecho }}</option>
+                  {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <input type="date" 
+              id="dataa" 
+              name="dataa" 
+              class="form-control" 
+              placeholder="Data" 
+              >
+            </div>
+            <div class="col-md-3">
+                <input type="number" 
+              id="numero_assento" 
+              name="numero_assento" 
+              class="form-control" 
+              placeholder="Numero do assento" 
+              > <!--escolhe: assento-->
+            </div>
+            <div class="col-md-3">
+                <input type="text" 
+              id="nome_cliente" 
+              name="nome_cliente" 
+              class="form-control" 
+              placeholder="Nome do cliente" 
+              >
+            </div>
+            <div class="col-md-3">
+                <input type="text" 
+              id="telefone_cliente" 
+              name="telefone_cliente" 
+              class="form-control" 
+              placeholder="Telefone do cliente" 
+              >
+            </div>
+            <button type="submit" class="btn btn-primary btn-salvar col-md-2">Salvar</button>
+        </div>
+    </form>
+
+    {% endif %}
+    <table class="table table-striped table-responsive table-bordered">
+        <thead class="thead-default">
+            <tr>
+                <th>Numero do voo</th>
+                <th>Numero do trecho</th>
+                <th>Data</th>
+                <th>Numero do assento</th>
+                <th>Nome do cliente</th>
+                <th>Telefone do cliente</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reserva_assento in reservas %}
+             <tr>
+                 <td>{{ reserva_assento.numero_voo }}</td>
+                 <td>{{ reserva_assento.numero_trecho}}</td>
+                 <td>{{ reserva_assento.dataa }}</td>
+                 <td>{{ reserva_assento.numero_assento }}</td>
+                 <td>{{ reserva_assento.nome_cliente }}</td>
+                 <td>{{ reserva_assento.telefone_cliente }}</td>
+                 <td>
+                    <a class="btn btn-primary btn-sm" href="{{ url_for('reserva_assento',
+                    numero_voo=reserva_assento.numero_voo,
+                    numero_trecho=reserva_assento.numero_trecho,
+                    dataa=reserva_assento.dataa,
+                    numero_assento=reserva_assento.numero_assento) }}"> Editar
+                    </a>
+                    <a class="btn btn-danger btn-sm" href="{{ url_for('deletar_reserva_assento', numero_voo=reserva_assento.numero_voo,
+                    numero_trecho=reserva_assento.numero_trecho,dataa=reserva_assento.dataa,numero_assento=reserva_assento.numero_assento)}}">Deletar</a>
+                </td>
+             </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -6,3 +6,5 @@ from views.aeronave_view import *
 from views.pode_pousar_view import *
 from views.index_view import *
 from views.busca_assento_view import *
+from views.reserva_assento_view import *
+from views.index_view import *
