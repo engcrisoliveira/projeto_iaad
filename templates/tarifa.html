@@ -1,0 +1,76 @@
+{% extends "template.html" %}
+{% block conteudo %}
+    {% if tarifa %}
+    <form action="{{ url_for('atualizar_tarifa') }}" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="codigo_tarifa" value="{{ tarifa.codigo_tarifa }}">
+    <div class="row">
+        <div class="col-md-2">
+            <label for="">Número do Voo:</label>
+            <select name="numero_voo" id="numero_voo" value="{{ tarifa.numero_voo }}">
+                {% for voo in voos %}
+                    <option value="{{ voo.numero_voo }}">{{ voo.numero_voo }}</option>
+                {% endfor %}
+              </select>
+          </div>
+        <div class="col-md-2">
+          <input type="text" id="quantidade" name="quantidade" class="form-control" placeholder="Quantidade" value="{{ tarifa.quantidade }}">
+        </div>
+        <div class="col-md-2">
+            <input type="text" id="restricoes" name="restricoes" class="form-control" placeholder="Restrições" value="{{ tarifa.restricoes }}">
+          </div>
+        <button type="submit" class="btn btn-primary btn-salvar col-md-1">Salvar</button>
+        <a href="/tarifa" class="btn btn-primary col-md-1" role="button">Voltar</a>
+      </div>
+    </form>
+    
+    {% else %}
+    <form action="{{ url_for('criar_tarifa') }}" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-2">
+            <label for="numero_voo">Número do Voo:</label>
+            <select name="numero_voo" id="numero_voo">
+                {% for voo in voos %}
+                    <option 
+                    value="{{ voo.numero_voo }}">
+                    {{ voo.numero_voo }}
+                    </option>
+                {% endfor %}
+            </select>
+          </div>
+      <div class="col-md-2">
+        <input type="text" id="quantidade" name="quantidade" class="form-control" placeholder="Quantidade">
+      </div>
+      <div class="col-md-2">
+        <input type="text" id="restricoes" name="restricoes" class="form-control" placeholder="Restrições">
+      </div>
+      <button type="submit" class="btn btn-primary btn-salvar col-md-2">Salvar</button>
+    </div>
+    </form>
+    
+    {% endif %}
+        <table class="table table-striped table-responsive table-bordered">
+            <thead class="thead-default">
+                <tr>
+                    <th>Código da Tarifa</th>
+                    <th>Número do Voo</th>                    
+                    <th>Quantidade</th>
+                    <th>Restrições</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for tarifa in tarifas %}
+                <tr>
+                    <td>{{ tarifa.codigo_tarifa }}</td>
+                    <td>{{ tarifa.numero_voo }}</td>
+                    <td>{{ tarifa.quantidade }}</td>
+                    <td>{{ tarifa.restricoes }}</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="{{ url_for('tarifa', id=tarifa.codigo_tarifa) }}">Editar</a>
+                        <a class="btn btn-danger btn-sm" href="{{ url_for('deletar_tarifa', id=tarifa.codigo_tarifa) }}">Deletar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}

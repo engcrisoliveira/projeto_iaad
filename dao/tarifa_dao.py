@@ -14,10 +14,10 @@ class TarifaDao:
         cursor = self.__db.connection.cursor()
 
         if (tarifa.codigo_tarifa):
-            cursor.execute(SQL_ATUALIZA_TARIFA, (tarifa.Numero_voo, tarifa.Quantidade, tarifa.Restricoes, tarifa.Codigo_tarifa))
+            cursor.execute(SQL_ATUALIZA_TARIFA, (tarifa.numero_voo, tarifa.quantidade, tarifa.restricoes, tarifa.codigo_tarifa))
         else:
-            cursor.execute(SQL_CRIA_TARIFA, (tarifa.Numero_voo, tarifa.Quantidade, tarifa.Restricoes))
-            tarifa.Codigo_tarifa = cursor.lastrowid
+            cursor.execute(SQL_CRIA_TARIFA, (tarifa.numero_voo, tarifa.quantidade, tarifa.restricoes))
+            tarifa.codigo_tarifa = cursor.lastrowid
         self.__db.connection.commit()
         return tarifa
     
@@ -29,9 +29,9 @@ class TarifaDao:
     
     def buscar_tarifa_por_codigo(self, Codigo_tarifa):
         cursor = self.__db.connection.cursor()
-        cursor.execute(SQL_PESQUISAR_TARIFA_POR_CODIGO_TARIFA, (Codigo_tarifa))
+        cursor.execute(SQL_PESQUISAR_TARIFA_POR_CODIGO_TARIFA, (Codigo_tarifa, ))
         tupla = cursor.fetchone()
-        return Tarifa(tupla[1], tupla[2], tupla[3], Codigo_tarifa = tupla[0])
+        return Tarifa(tupla[0], tupla[2], tupla[3], codigo_tarifa = tupla[1])
     
     def deletar(self, Codigo_tarifa):
         self.__db.connection.cursor().execute(SQL_DELETA_TARIFA, (Codigo_tarifa, ))
@@ -39,5 +39,5 @@ class TarifaDao:
 
 def traduz_tarifas(tarifas):
     def cria_tarifas_com_tupla(tupla):
-        return Tarifa(tupla[1], tupla[2], tupla[3], codigo_tarifa=[0])
+        return Tarifa(tupla[0], tupla[2], tupla[3], codigo_tarifa=tupla[1])
     return list(map(cria_tarifas_com_tupla, tarifas))
