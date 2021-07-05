@@ -14,7 +14,7 @@ class AeronaveDao:
         cursor = self.__db.connection.cursor()
 
         if (aeronave.codigo_aeronave):
-            cursor.execute(SQL_ATUALIZA_AERONAVE,(aeronave.numero_total_assentos, aeronave.tipo_aeronave))
+            cursor.execute(SQL_ATUALIZA_AERONAVE,(aeronave.numero_total_assentos, aeronave.tipo_aeronave, aeronave.codigo_aeronave))
         else:
             cursor.execute(SQL_CRIA_AERONAVE, (aeronave.numero_total_assentos, aeronave.tipo_aeronave))
             aeronave.codigo_aeronave = cursor.lastrowid
@@ -29,11 +29,12 @@ class AeronaveDao:
 
     def busca_por_codigo_aeronave(self, codigo_aeronave):
         cursor = self.__db.connection.cursor()
-        cursor.execute(SQL_AERONAVE_POR_CODIGO_AERONAVE, (codigo_aeronave))
+        cursor.execute(SQL_AERONAVE_POR_CODIGO_AERONAVE, (codigo_aeronave,))
         tupla = cursor.fetchone()
         return Aeronave(tupla[1],tupla[2], codigo_aeronave=tupla[0])
 
     def deletar(self, codigo_aeronave):
+        codigo_aeronave = codigo_aeronave
         self.__db.connection.cursor().execute(SQL_DELETA_AERONAVE, (codigo_aeronave))
         self.__db.connection.commit()
 
