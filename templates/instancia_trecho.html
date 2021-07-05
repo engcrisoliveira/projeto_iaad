@@ -1,0 +1,161 @@
+{% extends "template.html" %}
+{% block conteudo %}
+    {% if instancia_trecho %}
+    <form action="{{ url_for('atualizar_instancia_trecho') }}" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="numero_voo_escolhido" value="{{ instancia_trecho.numero_voo }}">
+    <input type="hidden" name="numero_trecho_escolhido" value="{{ instancia_trecho.numero_trecho }}">
+    <input type="hidden" name="dataa_escolhido" value="{{ instancia_trecho.dataa }}">
+    <div class="row">
+        <div class="col-md-2">
+            <label for="numero_voo">Número do Voo:</label>
+            <select name="numero_voo" id="numero_voo" value="{{ instancia_trecho.numero_voo }}">
+                {% for voo in voos %}
+                    <option value="{{ voo.numero_voo }}">{{ voo.numero_voo }}</option>
+                {% endfor %}
+              </select>
+          </div>
+          <div class="col-md-2">
+            <label for="numero_trecho">Número do Trecho:</label>
+            <select name="numero_trecho" id="numero_trecho" value="{{ instancia_trecho.numero_trecho }}">
+                {% for trecho_voo in trecho_voos %}
+                    <option value="{{ trecho_voo.numero_trecho }}">{{ trecho_voo.numero_trecho }}</option>
+                {% endfor %}
+              </select>
+          </div>
+        <div class="col-md-2">
+          <input type="date" id="dataa" name="dataa" class="form-control" placeholder="Data" value="{{ instancia_trecho.dataa }}">
+        </div>
+        <div class="col-md-2">
+            <input type="text" id="numero_assentos_disponiveis" name="numero_assentos_disponiveis" class="form-control" placeholder="Número de Assentos Disponíveis" value="{{ instancia_trecho.numero_assentos_disponiveis }}">
+          </div>
+        <div class="col-md-2">
+            <label for="codigo_aeronave">Código da Aeronave:</label>
+            <select name="codigo_aeronave" id="codigo_aeronave" value="{{ instancia_trecho.codigo_aeronave }}">
+                {% for aeronave in aeronaves %}
+                    <option value="{{ aeronave.codigo_aeronave }}">{{ aeronave.codigo_aeronave }}</option>
+                {% endfor %}
+              </select>
+        </div>
+        <div class="col-md-2">
+            <label for="codigo_aeroporto_partida">Aeroporto de Partida:</label>
+                <select name="codigo_aeroporto_partida" id="codigo_aeroporto_partida">
+                    {% for aeroporto in aeroportos %}
+                        <option value="{{ aeroporto.codigo_aeroporto }}">{{ aeroporto.codigo_aeroporto }}</option>
+                    {% endfor %}
+                  </select>
+          </div>
+          <div class="col-md-2">
+            <input type="text" id="horario_partida_previsto" name="horario_partida_previsto" class="form-control" placeholder="Hórario de Partida Previsto" value="{{ instancia_trecho.horario_partida }}">
+          </div>
+        <div class="col-md-2">
+            <label for="codigo_aeroporto_chegada">Aeroporto de Chegada:</label>
+            <select name="codigo_aeroporto_chegada" id="codigo_aeroporto_chegada" value="{{ instancia_trecho.codigo_aeroporto_chegada }}">
+                {% for aeroporto in aeroportos %}
+                    <option value="{{ aeroporto.codigo_aeroporto }}">{{ aeroporto.codigo_aeroporto }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <input type="text" id="horario_chegada_previsto" name="horario_chegada_previsto" class="form-control" placeholder="Hórario de Chegada Previsto" value="{{ instancia_trecho.horario_chegada }}">
+          </div>
+        <button type="submit" class="btn btn-primary btn-salvar col-md-1">Salvar</button>
+        <a href="/instancia_trecho" class="btn btn-primary col-md-1" role="button">Voltar</a>
+      </div>
+    </form>
+    
+    {% else %}
+    <form action="{{ url_for('criar_instancia_trecho') }}" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-2">
+                <label for="numero_voo">Número do Voo:</label>
+                <select name="numero_voo" id="numero_voo">
+                    {% for voo in voos %}
+                        <option value="{{ voo.numero_voo }}">{{ voo.numero_voo }}</option>
+                    {% endfor %}
+                  </select>
+              </div>
+              <div class="col-md-2">
+                <label for="numero_trecho">Número do Trecho:</label>
+                <select name="numero_trecho" id="numero_trecho">
+                    {% for trecho_voo in trecho_voos %}
+                        <option value="{{ trecho_voo.numero_trecho }}">{{ trecho_voo.numero_trecho }}</option>
+                    {% endfor %}
+                  </select>
+              </div>
+            <div class="col-md-2">
+              <input type="date" id="dataa" name="dataa" class="form-control" placeholder="Data">
+            </div>
+            <div class="col-md-2">
+                <input type="text" id="numero_assentos_disponiveis" name="numero_assentos_disponiveis" class="form-control" placeholder="Número de Assentos Disponíveis">
+              </div>
+            <div class="col-md-2">
+                <label for="codigo_aeronave">Código da Aeronave:</label>
+                <select name="codigo_aeronave" id="codigo_aeronave">
+                    {% for aeronave in aeronaves %}
+                        <option value="{{ aeronave.codigo_aeronave }}">{{ aeronave.codigo_aeronave }}</option>
+                    {% endfor %}
+                  </select>
+            </div>
+            <div class="col-md-2">
+                <label for="codigo_aeroporto_partida">Aeroporto de Partida:</label>
+                    <select name="codigo_aeroporto_partida" id="codigo_aeroporto_partida">
+                        {% for aeroporto in aeroportos %}
+                            <option value="{{ aeroporto.codigo_aeroporto }}">{{ aeroporto.codigo_aeroporto }}</option>
+                        {% endfor %}
+                      </select>
+              </div>
+              <div class="col-md-2">
+                <input type="text" id="horario_partida_previsto" name="horario_partida_previsto" class="form-control" placeholder="Hórario de Partida Previsto">
+              </div>
+            <div class="col-md-2">
+                <label for="codigo_aeroporto_chegada">Aeroporto de Chegada:</label>
+                <select name="codigo_aeroporto_chegada" id="codigo_aeroporto_chegada">
+                    {% for aeroporto in aeroportos %}
+                        <option value="{{ aeroporto.codigo_aeroporto }}">{{ aeroporto.codigo_aeroporto }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <input type="text" id="horario_chegada_previsto" name="horario_chegada_previsto" class="form-control" placeholder="Hórario de Chegada Previsto">
+              </div>
+      <button type="submit" class="btn btn-primary btn-salvar col-md-2">Salvar</button>
+    </div>
+    </form>
+    
+    {% endif %}
+        <table class="table table-striped table-responsive table-bordered">
+            <thead class="thead-default">
+                <tr>
+                    <th>Número do Voo</th> 
+                    <th>Número do Trecho</th>
+                    <th>Data</th>
+                    <th>Número de Assentos Disponíveis</th>
+                    <th>Código da Aeronave</th>                    
+                    <th>Código do Aeroporto de Partida</th>
+                    <th>Horário de Partida Previsto</th>
+                    <th>Código do Aeroporto de Chegada</th>
+                    <th>Horário de Chegada Previsto</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for instancia_trecho in instancia_trechos %}
+                <tr>
+                    <td>{{ instancia_trecho.numero_voo }}</td>
+                    <td>{{ instancia_trecho.numero_trecho }}</td>
+                    <td>{{ instancia_trecho.dataa }}</td>
+                    <td>{{ instancia_trecho.numero_assentos_disponiveis }}</td>
+                    <td>{{ instancia_trecho.codigo_aeronave }}</td>
+                    <td>{{ instancia_trecho.codigo_aeroporto_partida }}</td>
+                    <td>{{ instancia_trecho.horario_partida }}</td>
+                    <td>{{ instancia_trecho.codigo_aeroporto_chegada }}</td>
+                    <td>{{ instancia_trecho.horario_chegada }}</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="{{ url_for('instancia_trecho', numero_trecho= instancia_trecho.numero_trecho, numero_voo=instancia_trecho.numero_voo, dataa=instancia_trecho.dataa) }}">Editar</a>
+                        <a class="btn btn-danger btn-sm" href="{{ url_for('deletar_instancia_trecho', numero_trecho= instancia_trecho.numero_trecho, numero_voo=instancia_trecho.numero_voo, dataa=instancia_trecho.dataa) }}">Deletar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}

@@ -1,6 +1,7 @@
 from views.aeroporto_view import *
 from views.voo_view import *
 from views.trecho_voo_view import *
+from views.instancia_trecho_view import *
 from views.tarifa_view import *
 from views.tipo_aeronave_view import *
 from views.aeronave_view import *
